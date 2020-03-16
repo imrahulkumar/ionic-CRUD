@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addProduct()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <cdk-virtual-scroll-viewport *ngIf="isViewEnable"  cdkDropList itemSize="20" class="example-viewport" (cdkDropListDropped)="drop($event)">
+    <ion-item *cdkVirtualFor="let p of products" lines="full" class="example-item" [routerLink]="['/product-detail', p.id]" routerDirection="forward" cdkDrag>
+      <ion-icon name="desktop" slot="start"></ion-icon>
+      {{p.prod_name}}
+      <div class="item-note" slot="end">
+        {{p.prod_price | currency}}
+      </div>
+    </ion-item>
+  </cdk-virtual-scroll-viewport>
+</ion-content>
