@@ -12,7 +12,7 @@ import { ChangeDetectorRef } from '@angular/core';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage {
 
   products: any[] = [];
   isViewEnable:boolean = false;
@@ -27,17 +27,21 @@ export class HomePage implements OnInit {
      
     }
 
-  ngOnInit() {
+  // ngOnInit() {
 
-    this.router.events.forEach((event) => {
-      if(event instanceof NavigationEnd) {
-        setTimeout(()=>{
-          this.getProducts();
-        },1000)
+  //   this.router.events.forEach((event) => {
+  //     if(event instanceof NavigationEnd) {
+  //       setTimeout(()=>{
+  //         this.getProducts();
+  //       },1000)
     
-      }       
-    });
+  //     }       
+  //   });
 
+  //   this.getProducts();
+  // }
+
+  ionViewWillEnter() {
     this.getProducts();
   }
 
@@ -47,17 +51,12 @@ export class HomePage implements OnInit {
     });
 
     await loading.present();
-    this.isViewEnable = false;
+    this.products = [];
     await this.api.getProducts()
       .subscribe(res => {
-        this.products = []
-        this.products = res;
-        this.changeRef.detectChanges();
-        this.isViewEnable = true;
-        // console.log("home page",this.products);
+        this.products = res ? res : [];
         loading.dismiss();
       }, err => {
-        this.isViewEnable = true;
         console.log(err);
         loading.dismiss();
       });

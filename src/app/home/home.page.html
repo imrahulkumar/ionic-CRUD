@@ -10,7 +10,7 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <cdk-virtual-scroll-viewport *ngIf="isViewEnable"  cdkDropList itemSize="20" class="example-viewport" (cdkDropListDropped)="drop($event)">
+  <cdk-virtual-scroll-viewport *ngIf="products?.length" cdkDropList itemSize="20" class="example-viewport" (cdkDropListDropped)="drop($event)">
     <ion-item *cdkVirtualFor="let p of products" lines="full" class="example-item" [routerLink]="['/product-detail', p.id]" routerDirection="forward" cdkDrag>
       <ion-icon name="desktop" slot="start"></ion-icon>
       {{p.prod_name}}
